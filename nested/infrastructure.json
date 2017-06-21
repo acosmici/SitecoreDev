@@ -332,6 +332,7 @@
       "apiVersion": "[variables('serverFarmApiVersion')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/hostingEnvironments/', parameters('webAppServiceEnvironmentName'))]",
+      ],
         "sku",
         {
           "name": "[parameters('singleHostingPlanSkuName')]",
