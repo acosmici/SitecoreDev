@@ -51,11 +51,6 @@
       "minLength": 1,
       "defaultValue": "[resourceGroup().id]"
     },
-    "licenseXml": {
-      "type": "securestring",
-      "minLength": 1
-    },
-
     "sqlServerName": {
       "type": "string",
       "defaultValue": "[concat(parameters('deploymentId'), '-sql')]"
@@ -347,10 +342,6 @@
           "passwordSalt": {
             "value": "[parameters('passwordSalt')]"
           },
-          "licenseXml": {
-            "value": "[parameters('licenseXml')]"
-          },
-
           "sqlServerLogin": {
             "value": "[parameters('sqlServerLogin')]"
           },
@@ -455,8 +446,6 @@
               "location": "[parameters('location')]",
               "sitecoreAdminPassword": "[parameters('sitecoreAdminPassword')]",
               "passwordSalt": "[parameters('passwordSalt')]",
-              "licenseXml": "[parameters('licenseXml')]",
-
               "sqlServerName": "[parameters('sqlServerName')]",
               "sqlServerLogin": "[parameters('sqlServerLogin')]",
               "sqlServerPassword": "[parameters('sqlServerPassword')]",
