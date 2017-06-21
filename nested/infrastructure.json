@@ -331,23 +331,19 @@
       "name": "[variables('hostingPlanNameTidy')]",
       "apiVersion": "[variables('serverFarmApiVersion')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/hostingEnvironments/', parameters('webAppServiceEnvironmentName'))]",
+        "[resourceId('Microsoft.Web/hostingEnvironments/', parameters('webAppServiceEnvironmentName'))]"
       ],
-        "sku",
-        {
-          "name": "[parameters('singleHostingPlanSkuName')]",
-          "capacity": "[parameters('singleHostingPlanSkuCapacity')]"
-        },
-        "properties",
-        {
-          "name": "[variables('hostingPlanNameTidy')]"
-        },
-        "location",
-        "[parameters('location')]",
-        "tags",
-        {
-          "provider": "[variables('sitecoreTags').provider]"
-        }
+      "sku": {
+        "name": "[parameters('singleHostingPlanSkuName')]",
+        "capacity": "[parameters('singleHostingPlanSkuCapacity')]"
+      },
+      "properties": {
+        "name": "[variables('hostingPlanNameTidy')]"
+      },
+      "location": "[parameters('location')]",
+      "tags": {
+        "provider": "[variables('sitecoreTags').provider]"
+      }
     },
     {
       "type": "Microsoft.Web/sites",
