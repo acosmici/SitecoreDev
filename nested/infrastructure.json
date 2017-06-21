@@ -32,7 +32,10 @@
       "type": "string",
       "defaultValue": "[resourceGroup().location]"
     },
-
+    "aselocation": {
+      "type": "string",
+      "defaultValue": "North Europe"
+    },
     "sqlServerName": {
       "type": "string",
       "defaultValue": "[concat(parameters('deploymentId'), '-sql')]"
@@ -292,7 +295,7 @@
       "apiVersion": "2015-08-01",
       "name": "[parameters('webAppServiceEnvironmentName')]",
       "type": "Microsoft.Web/hostingEnvironments",
-      "location": "[parameters('location')]",
+      "location": "[parameters('aselocation')]",
       "dependsOn": [],
       "properties": {
         "name": "[parameters('webAppServiceEnvironmentName')]",
@@ -314,7 +317,7 @@
             "workerCount": "[parameters('WebAppWorker3count')]"
           }
         ],
-        "location": "[parameters('location')]",
+        "location": "[parameters('aselocation')]",
         "MultiSize": "[parameters('webAppFrontendSize')]",
         "MultiRoleCount": "[parameters('webAppFrontendCount')]",
         "virtualNetwork": {
@@ -327,17 +330,23 @@
       "type": "Microsoft.Web/serverfarms",
       "name": "[variables('hostingPlanNameTidy')]",
       "apiVersion": "[variables('serverFarmApiVersion')]",
-      "sku": {
-        "name": "[parameters('singleHostingPlanSkuName')]",
-        "capacity": "[parameters('singleHostingPlanSkuCapacity')]"
-      },
-      "properties": {
-        "name": "[variables('hostingPlanNameTidy')]"
-      },
-      "location": "[parameters('location')]",
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]"
-      }
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/hostingEnvironments/', parameters('webAppServiceEnvironmentName'))]",
+        "sku",
+        {
+          "name": "[parameters('singleHostingPlanSkuName')]",
+          "capacity": "[parameters('singleHostingPlanSkuCapacity')]"
+        },
+        "properties",
+        {
+          "name": "[variables('hostingPlanNameTidy')]"
+        },
+        "location",
+        "[parameters('location')]",
+        "tags",
+        {
+          "provider": "[variables('sitecoreTags').provider]"
+        }
     },
     {
       "type": "Microsoft.Web/sites",
